@@ -9,13 +9,12 @@ def recupera_tareas_y_sub_tareas():
     
     #Busqueda inversa
     for tarea in  lista_tareas:
-        sub_tareas= tarea.subtarea_set.filter(elimanda= False)
+        sub_tareas= tarea.subtarea_set.filter(eliminada= False)
         
         dicc_tareas={
             'tarea': tarea,
             'sub_tarea': sub_tareas
         }
-        
         arreglo_tareas_subtareas.append(dicc_tareas)
     
     return arreglo_tareas_subtareas
@@ -25,7 +24,7 @@ def crear_nueva_tarea(descripcion= '', eliminada= False):
     print(tarea.id)
     tarea.save()
     
-    return recupera_tareas_y_sub_tareas
+    return recupera_tareas_y_sub_tareas()
 
 def crear_sub_tarea(tarea_id, descripsion= ''):
     tarea= Tarea.objects.get(id= tarea_id)
@@ -33,7 +32,7 @@ def crear_sub_tarea(tarea_id, descripsion= ''):
     subtarea= SubTarea(descripsion= descripsion, eliminada= False, tarea_id= tarea)
     subtarea.save()
     
-    return recupera_tareas_y_sub_tareas
+    return recupera_tareas_y_sub_tareas()
 
 def elimina_tarea(tarea_id):
     tarea= Tarea.objects.get(id= tarea_id)
@@ -41,14 +40,14 @@ def elimina_tarea(tarea_id):
     tarea.save()
     #obj_tarea.delete()  Esto es una eliminacion fisica, se borra el registro de la tabla
     
-    return recupera_tareas_y_sub_tareas
+    return recupera_tareas_y_sub_tareas()
 
 def elimina_sub_tarea(SubTareatarea_id):
     tarea= SubTarea.objects.get(id= SubTareatarea_id)
     tarea.eliminada= True
     tarea.save()
     
-    return recupera_tareas_y_sub_tareas
+    return recupera_tareas_y_sub_tareas()
 
 def imprimir_en_pantalla():
     pass
